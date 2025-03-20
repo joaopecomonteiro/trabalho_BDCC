@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Admission {{ admission.HADM_ID }} {% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <h2>Informações sobre a admission</h2>
+    <p>
+    <b>HADM_ID: </b>{{ admission.HADM_ID }}
+    </p>
+    <p>
+{#    <b>SUBJECT_ID: </b>{{ admission.SUBJECT_ID }}#}
+    <a href="/patients/{{ admission.SUBJECT_ID }}"><b>Patient:</b> {{ admission.SUBJECT_ID }}</a>
+    </p>
+    <p>
+    <b>ADMITTIME: </b>{{ admission.ADMITTIME }}
+    </p>
+    <p>
+    <b>DISCHTIME: </b>{{ admission.DISCHTIME }}
+    </p>
+    <p>
+    <b>DEATHTIME: </b>{{ admission.DEATHTIME }}
+    </p>
+    <p>
+    <b>ADMISSION_TYPE: </b>{{ admission.ADMISSION_TYPE }}
+    </p>
+    <p>
+    <b>DISCHARGE_LOCATION: </b>{{ admission.DISCHARGE_LOCATION }}
+    </p>
+    <p>
+    <b>INSURANCE: </b>{{ admission.INSURANCE }}
+    </p>
+    <p>
+    <b>LANGUAGE: </b>{{ admission.LANGUAGE }}
+    </p>
+    <p>
+    <b>RELIGION: </b>{{ admission.RELIGION }}
+    </p>
+    <p>
+    <b>MARITAL_STATUS: </b>{{ admission.MARITAL_STATUS }}
+    </p>
+    <p>
+    <b>ETHNICITY: </b>{{ admission.ETHNICITY }}
+    </p>
+    <p>
+    <b>EDREGTIME: </b>{{ admission.EDREGTIME }}
+    </p>
+    <p>
+    <b>EDOUTTIME: </b>{{ admission.EDOUTTIME }}
+    </p>
+    <p>
+    <b>DIAGNOSIS: </b>{{ admission.DIAGNOSIS }}
+    </p>
+    <p>
+    <b>HOSPITAL_EXPIRE_FLAG: </b>{{ admission.HOSPITAL_EXPIRE_FLAG }}
+    </p>
+    <p>
+    <b>HAS_CHARTEVENTS_DATA: </b>{{ admission.HAS_CHARTEVENTS_DATA }}
+    </p>
+    <p>
+    <b>ADMISSION_LOCATION: </b>{{ admission.ADMISSION_LOCATION }}
+    </p>
+{% endblock %}

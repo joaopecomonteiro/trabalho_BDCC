@@ -1,0 +1,15 @@
+google-cloud-bigquery==3.10.0
+Flask==3.0.0
+google-cloud-storage
+functions_framework
+google-cloud-logging
+
+
+
+
+
+
+
+
+
+

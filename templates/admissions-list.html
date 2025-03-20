@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Admissions{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <table>
+      <tr>
+          <th><b>HADM_ID</b></th>
+          <th><b>SUBJECT_ID</b></th>
+        <th><b>ADMITTIME</b></th>
+        <th><b>DISCHTIME</b></th>
+        <th><b>DIAGNOSIS</b></th>
+        <th><b>HOSPITAL_EXPIRE_FLAG</b></th>
+
+       </tr>
+
+      {% for admission in data %}
+        <tr>
+          <td><a href="/admissions/{{ admission.HADM_ID }}">{{ admission.HADM_ID }}</a></td>
+          <td><a href="/patients/{{ admission.SUBJECT_ID }}">{{ admission.SUBJECT_ID }}</a></td>
+          <td>{{ admission.ADMITTIME }}</td>
+          <td>{{ admission.DISCHTIME }}</td>
+          <td>{{ admission.DIAGNOSIS }}</td>
+          <td>{{ admission.HOSPITAL_EXPIRE_FLAG }}</td>
+        </tr>
+
+      {% endfor %}
+  </table>
+{% endblock %}

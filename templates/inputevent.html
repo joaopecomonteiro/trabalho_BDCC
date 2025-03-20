@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Lab Event Patient: {{ data[0].SUBJECT_ID }}
+{% endblock %}
+
+{% block header %}
+  <h1>Input Event Patient: <a href="/patients/{{ data[0].SUBJECT_ID }}">{{ data[0].SUBJECT_ID }}</a></h1>
+{% endblock %}
+
+
+{% block content %}
+<table>
+    <tr>
+{#        <th><b>SUBJECT_ID</b></th>#}
+{#        <th><b>HADM_ID</b></th>#}
+        <th><b>ICUSTAY_ID</b></th>
+        <th><b>STARTTIME</b></th>
+        <th><b>ENDTIME</b></th>
+        <th><b>ITEMID</b></th>
+        <th><b>AMOUNT</b></th>
+        <th><b>AMOUNTUOM</b></th>
+        <th><b>RATE</b></th>
+        <th><b>RATEUOM</b></th>
+        <th><b>STORETIME</b></th>
+        <th><b>CGID</b></th>
+        <th><b>ORDERID</b></th>
+        <th><b>LINKORDERID</b></th>
+        <th><b>ORDERCATEGORYNAME</b></th>
+        <th><b>SECONDARYORDERCATEGORYNAME</b></th>
+        <th><b>ORDERCOMPONENTTYPEDESCRIPTION</b></th>
+        <th><b>ORDERCATEGORYDESCRIPTION</b></th>
+        <th><b>inputeventWEIGHT</b></th>
+        <th><b>TOTALAMOUNT</b></th>
+        <th><b>TOTALAMOUNTUOM</b></th>
+        <th><b>ISOPENBAG</b></th>
+        <th><b>CONTINUEINNEXTDEPT</b></th>
+        <th><b>CANCELREASON</b></th>
+        <th><b>STATUSDESCRIPTION</b></th>
+        <th><b>COMMENTS_EDITEDBY</b></th>
+        <th><b>COMMENTS_CANCELEDBY</b></th>
+        <th><b>COMMENTS_DATE</b></th>
+        <th><b>ORIGINALAMOUNT</b></th>
+        <th><b>ORIGINALRATE</b></th>
+    </tr>
+
+    {% for inputevent in data %}
+    <tr>
+{#        <td><a href="/patients/{{ inputevent.SUBJECT_ID }}">{{ inputevent.SUBJECT_ID }}</a></td>#}
+{#        <td><a href="/admissions/{{ inputevent.HADM_ID }}">{{ inputevent.HADM_ID }}</a></td>#}
+        <td>{{ inputevent.ICUSTAY_ID }}</td>
+        <td>{{ inputevent.STARTTIME }}</td>
+        <td>{{ inputevent.ENDTIME }}</td>
+        <td>{{ inputevent.ITEMID }}</td>
+        <td>{{ inputevent.AMOUNT }}</td>
+        <td>{{ inputevent.AMOUNTUOM }}</td>
+        <td>{{ inputevent.RATE }}</td>
+        <td>{{ inputevent.RATEUOM }}</td>
+        <td>{{ inputevent.STORETIME }}</td>
+        <td>{{ inputevent.CGID }}</td>
+        <td>{{ inputevent.ORDERID }}</td>
+        <td>{{ inputevent.LINKORDERID }}</td>
+        <td>{{ inputevent.ORDERCATEGORYNAME }}</td>
+        <td>{{ inputevent.SECONDARYORDERCATEGORYNAME }}</td>
+        <td>{{ inputevent.ORDERCOMPONENTTYPEDESCRIPTION }}</td>
+        <td>{{ inputevent.ORDERCATEGORYDESCRIPTION }}</td>
+        <td>{{ inputevent.inputeventWEIGHT }}</td>
+        <td>{{ inputevent.TOTALAMOUNT }}</td>
+        <td>{{ inputevent.TOTALAMOUNTUOM }}</td>
+        <td>{{ inputevent.ISOPENBAG }}</td>
+        <td>{{ inputevent.CONTINUEINNEXTDEPT }}</td>
+        <td>{{ inputevent.CANCELREASON }}</td>
+        <td>{{ inputevent.STATUSDESCRIPTION }}</td>
+        <td>{{ inputevent.COMMENTS_EDITEDBY }}</td>
+        <td>{{ inputevent.COMMENTS_CANCELEDBY }}</td>
+        <td>{{ inputevent.COMMENTS_DATE }}</td>
+        <td>{{ inputevent.ORIGINALAMOUNT }}</td>
+        <td>{{ inputevent.ORIGINALRATE }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+{#  <h2>Informações sobre o Input Event</h2>#}
+{##}
+{#  <p>#}
+{#    <a href="/inputevents/{{ inputevent.SUBJECT_ID }}"><b>inputevent:</b> {{ inputevent.SUBJECT_ID }}</a>#}
+{#  </p>#}
+{#  <p>#}
+{#    <a href="/admissions/{{ inputevent.HADM_ID }}"><b>Admission:</b> {{ inputevent.HADM_ID }}</a>#}
+{#  </p>#}
+{#  <p>#}
+{#    <b>ICU Stay ID:</b> {{ inputevent.ICUSTAY_ID }}#}
+{#  </p>#}
+{#  <p>#}
+{#    <b>Start Time:</b> {{ inputevent.STARTTIME }}#}
+{#  </p>#}
+{#  <p>#}
+{#    <b>End Time:</b> {{ inputevent.ENDTIME }}#}
+{#  </p>#}
+{#  <p>#}
+{#    <b>ITEMID:</b> {{ inputevent.ITEMID }}#}
+{#  </p>#}
+{#  <p>#}
+{#    <b>Amount:</b> {{ inputevent.AMOUNT }} {{ inputevent.AMOUNTUOM }}#}
+{#  </p>#}
+{#  <p>#}
+{#    <b>Rate:</b> {{ inputevent.RATE }} {{ inputevent.RATEUOM }}#}
+{#  </p>#}
+{#  <p>#}
+{#    <b>Store Time:</b> {{ inputevent.STORETIME }}#}
+{#  </p>#}
+{#  <p>#}
+{#    <b>CGID:</b> {{ inputevent.CGID }}#}
+{#  </p>#}
+{#  <p>#}
+{#    <b>Order ID:</b> {{ inputevent.ORDERID }}#}
+{#  </p>#}
+{#  <p>#}
+{#    <b>Link Order ID:</b> {{ inputevent.LINKORDERID }}#}
+{#  </p>#}
+{#  <p>#}
+{#    <b>Order Category Name:</b> {{ inputevent.ORDERCATEGORYNAME }}#}
+{#  </p>#}
+{#  <p>#}
+{#    <b>Secondary Order Category Name:</b> {{ inputevent.SECONDARYORDERCATEGORYNAME }}#}
+{#  </p>#}
+{#  <p>#}
+{#    <b>Order Component Type Description:</b> {{ inputevent.ORDERCOMPONENTTYPEDESCRIPTION }}#}
+{#  </p>#}
+{#  <p>#}
+{#    <b>Order Category Description:</b> {{ inputevent.ORDERCATEGORYDESCRIPTION }}#}
+{#  </p>#}
+{#  <p>#}
+{#    <b>inputevent Weight:</b> {{ inputevent.inputeventWEIGHT }}#}
+{#  </p>#}
+{#  <p>#}
+{#    <b>Total Amount:</b> {{ inputevent.TOTALAMOUNT }} {{ inputevent.TOTALAMOUNTUOM }}#}
+{#  </p>#}
+{#  <p>#}
+{#    <b>Is Open Bag:</b> {{ inputevent.ISOPENBAG }}#}
+{#  </p>#}
+{#  <p>#}
+{#    <b>Continue in Next Department:</b> {{ inputevent.CONTINUEINNEXTDEPT }}#}
+{#  </p>#}
+{#  <p>#}
+{#    <b>Cancel Reason:</b> {{ inputevent.CANCELREASON }}#}
+{#  </p>#}
+{#  <p>#}
+{#    <b>Status Description:</b> {{ inputevent.STATUSDESCRIPTION }}#}
+{#  </p>#}
+{#  <p>#}
+{#    <b>Comments Edited By:</b> {{ inputevent.COMMENTS_EDITEDBY }}#}
+{#  </p>#}
+{#  <p>#}
+{#    <b>Comments Canceled By:</b> {{ inputevent.COMMENTS_CANCELEDBY }}#}
+{#  </p>#}
+{#  <p>#}
+{#    <b>Comments Date:</b> {{ inputevent.COMMENTS_DATE }}#}
+{#  </p>#}
+{#  <p>#}
+{#    <b>Original Amount:</b> {{ inputevent.ORIGINALAMOUNT }}#}
+{#  </p>#}
+{#  <p>#}
+{#    <b>Original Rate:</b> {{ inputevent.ORIGINALRATE }}#}
+{#  </p>#}
+
+{% endblock %}

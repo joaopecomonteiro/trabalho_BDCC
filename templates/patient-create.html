@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+
+{% block header %}
+  <h1>{% block title %} Create Patient {% endblock %}</h1>
+{% endblock %}
+
+
+{% block content %}
+    <form method="POST" action="{{ url_for('patient_created') }}" style="display: flex; flex-direction: column; max-width: 400px;">
+    <h2>Patient Information</h2>
+
+    <label for="GENDER">Gender:</label>
+    <select id="GENDER" name="GENDER" required>
+      <option value="M">Male</option>
+      <option value="F">Female</option>
+      <option value="other">Other</option>
+    </select>
+
+    <label for="DOB">Date of Birth:</label>
+    <input type="datetime-local" id="DOB" name="DOB" required>
+
+
+    <label for="DOD">Date of Death:</label>
+    <input type="datetime-local" id="DOD" name="DOD">
+
+    <label for="DOD_HOSP">Date of Death Hospital:</label>
+    <input type="datetime-local" id="DOD_HOSP" name="DOD_HOSP">
+
+    <label for="DOD_SSN">Date of Death SSN:</label>
+    <input type="datetime-local" id="DOD_SSN" name="DOD_SSN">
+
+    <label for="EXPIRE_FLAG">EXPIRE_FLAG:</label>
+    <select id="EXPIRE_FLAG" name="EXPIRE_FLAG" required>
+      <option value="0">ALIVE</option>
+      <option value="1">DEAD</option>
+    </select>
+
+     <h2>Admission Information</h2>
+
+
+    <button type="submit">Create Patient</button>
+  </form>
+{% endblock %}

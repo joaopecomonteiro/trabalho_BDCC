@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>Base de dados MIMIC-III</h1>
+{% endblock %}
+{% block title %}
+  MIMIC-III
+{% endblock %}
+
+{% block content %}
+<h2>Sobre</h2>
+<p>Esta aplicação ilustra o uso da base de dados MIMIC-III. Esta aplicação foi feita usando
+<a href="https://pymysql.readthedocs.io/">PyMySQL</a>,
+<a href="https://flask.palletsprojects.com">Flask</a>, e
+<a href="https://jinja.palletsprojects.com">Jinja</a>.
+</p>
+
+<h2>Alguns dados acerca da base de dados</h2>
+<table>
+<tr>
+  <th>Itens</th>
+  <th>Contagem</th>
+</tr>
+<tr>
+  <td>Patients</td>
+  <td>{{ stats.patients }}</td>
+</tr>
+
+</table>
+
+<h2>Funcionalidades básicas</h2>
+
+<h3>Patient</h3>
+<p>
+   <a href="/patients">Todos os patients</a>
+</p>
+
+<p>Informação sobre um patient:
+<form name="mid" action="javascript:window.open('/patients/'+document.forms['mid'].elements['id'].value,'_self')">
+   subject_id:  <input value="" name="id" type="number" min="1"/><input type="submit" value="obter"/>
+</form>
+</p>
+
+
+<h3>Admissions</h3>
+<p>
+   <a href="/admissions">Todos as admissions</a>
+</p>
+
+
+<p>Informação sobre uma admission:
+<form onsubmit="window.open('/admissions/'+this.elements['id'].value,'_self'); return false;">
+   hadm_id:  <input value="" name="id" type="number" min="1"/>
+    <input type="submit" value="obter"/>
+</form>
+</p>
+
+
+
+
+{% endblock %}

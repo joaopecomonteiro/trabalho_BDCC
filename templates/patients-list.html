@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Patients{% endblock %}</h1>
+{% endblock %}
+
+
+
+
+
+{% block content %}
+
+    <h2>
+    Delete Patient
+    </h2>
+        <form onsubmit="window.open('/patients/delete/'+this.elements['id'].value,'_self'); return false;">
+           subject_id:  <input value="" name="id" type="number" min="1"/>
+            <input type="submit" value="Delete"/>
+        </form>
+
+
+    <h2>
+    Create Patient
+    </h2>
+    <form onsubmit="window.open('/patients/create/','_self'); return false;">
+        <input type="submit" value="Go!!"/>
+    </form>
+
+    <h2>
+        List of Patients
+    </h2>
+  <table>
+      <tr>
+        <th><b>SUBJECT_ID</b></th>
+        <th><b>GENDER</b></th>
+        <th><b>DOB</b></th>
+
+       </tr>
+
+      {% for patient in data %}
+        <tr>
+          <td><a href="/patients/{{ patient.SUBJECT_ID }}">{{ patient.SUBJECT_ID }}</a></td>
+          <td>{{ patient.GENDER }}</td>
+          <td>{{ patient.DOB }}</td>
+        </tr>
+
+      {% endfor %}
+  </table>
+{% endblock %}

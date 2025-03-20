@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Patient {{ patient.SUBJECT_ID }} {% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+
+{#<h2>Informação sobre uma admission:#}
+{#<form onsubmit="window.open('/admissions/'+this.elements['id'].value,'_self'); return false;">#}
+{#   hadm_id:  <input value="" name="id" type="number" min="1"/>#}
+{#    <input type="submit" value="obter"/>#}
+{#</form>#}
+{#</h2>#}
+
+{% if patient.PHOTO_URL %}
+    <img src="{{ patient.PHOTO_URL }}" alt="Patient Photo" width="200" height="200">
+{% else %}
+    <img src="https://storage.googleapis.com/bdcc-451416.appspot.com/Defaultpatient.jpg" alt="Patient Photo" width="200" height="200">
+{% endif %}
+
+
+<form action="/patients/{{ patient.SUBJECT_ID }}/upload_photo" method="POST" enctype="multipart/form-data">
+    <label for="photo">Upload a New Photo:</label>
+    <input type="file" name="photo" accept="image/*" required>
+    <button type="submit">Upload Photo</button>
+</form>
+
+<h2>Lab event do patient</h2>
+    <a href="/labevent/{{ patient.SUBJECT_ID }}">Lab Event</a>
+
+<h2>Input event do patient</h2>
+    <a href="/inputevent/{{ patient.SUBJECT_ID }}">Input Event</a>
+
+
+  <h2>Informações sobre o patient</h2>
+    <p>
+    <b>SUBJECT_ID: </b>{{ patient.SUBJECT_ID }}
+    </p>
+    <p>
+    <b>GENDER: </b>{{ patient.GENDER }}
+    </p>
+    <p>
+    <b>DOB: </b>{{ patient.DOB }}
+    </p>
+    <p>
+    <b>DOD: </b>{{ patient.DOD }}
+    </p>
+    <p>
+    <b>DOD_HOSP: </b>{{ patient.DOD_HOSP }}
+    </p>
+    <p>
+    <b>DOD_SSN: </b>{{ patient.DOD_SSN }}
+    </p>
+    <p>
+    <b>EXPIRE_FLAG: </b>{{ patient.EXPIRE_FLAG }}
+    </p>
+{% endblock %}

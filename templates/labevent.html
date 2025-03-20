@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Lab Event Patient: {{ data[0].SUBJECT_ID }}
+{% endblock %}
+
+{% block header %}
+
+  <h1>Lab Event Patient: <a href="/patients/{{ data[0].SUBJECT_ID }}">{{ data[0].SUBJECT_ID }}</a></h1>
+{% endblock %}
+
+
+{% block content %}
+    <table>
+      <tr>
+        <th><b>ITEMID</b></th>
+        <th><b>CHARTTIME</b></th>
+        <th><b>VALUE</b></th>
+        <th><b>VALUENUM</b></th>
+        <th><b>VALUEUOM</b></th>
+        <th><b>FLAG</b></th>
+
+       </tr>
+
+      {% for labevent in data %}
+        <tr>
+          <td>{{ labevent.ITEMID }}</td>
+          <td>{{ labevent.CHARTTIME }}</td>
+          <td>{{ labevent.VALUE }}</td>
+          <td>{{ labevent.VALUENUM }}</td>
+          <td>{{ labevent.VALUEUOM }}</td>
+          <td>{{ labevent.FLAG }}</td>
+        </tr>
+
+      {% endfor %}
+  </table>
+
+
+
+{#    #}
+{#  <h2>Informações sobre o Lab Event</h2>#}
+{#    <p>#}
+{#    <a href="/patients/{{ labevent.SUBJECT_ID }}"><b>Patient: </b>{{ labevent.SUBJECT_ID }}</a>#}
+{#    <b>SUBJECT_ID: </b>{{ labevent.SUBJECT_ID }}#}
+{#    </p>#}
+{#    <p>#}
+{#    <a href="/admissions/{{ labevent.HADM_ID }}"><b>Admission:</b> {{ labevent.HADM_ID }}</a>#}
+{#    <b>HADM_ID: </b>{{ labevent.HADM_ID }}#}
+{#    </p>#}
+{#    <p>#}
+{#    <b>ITEMID: </b>{{ labevent.ITEMID }}#}
+{#    </p>#}
+{#    <p>#}
+{#    <b>CHARTTIME: </b>{{ labevent.CHARTTIME }}#}
+{#    </p>#}
+{#    <p>#}
+{#    <b>VALUE: </b>{{ labevent.VALUE }}#}
+{#    </p>#}
+{#    <p>#}
+{#    <b>VALUENUM: </b>{{ labevent.VALUENUM }}#}
+{#    </p>#}
+{#    <p>#}
+{#    <b>VALUEUOM: </b>{{ labevent.VALUEUOM }}#}
+{#    </p>#}
+{#    <p>#}
+{#    <b>FLAG: </b>{{ labevent.FLAG }}#}
+{#    </p>#}
+
+{% endblock %}
