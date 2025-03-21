@@ -10,6 +10,8 @@ from datetime import datetime
 app = flask.Flask(__name__)
 bigquery_client = bigquery.Client()
 
+# TESTE
+
 @app.route('/')
 def index():
     # TODO
