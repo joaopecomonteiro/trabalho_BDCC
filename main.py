@@ -275,6 +275,7 @@ def delete_patient(id):
 
 
 
+
     return render_template('patient-deleted.html',
            ID=id)
 
@@ -441,6 +442,212 @@ def upload_patient_photo(id):
     return get_patient(id)
 
     # return render_template('photo-uploaded.html', ID=id)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def patient_exists(subject_id):
+    query = """
+          SELECT SUBJECT_ID
+          FROM `bdcc-451416.Dataset1.PATIENTS`
+          WHERE SUBJECT_ID = @subject_id
+          """
+
+    # Define the job configuration and pass parameters safely
+    job_config = bigquery.QueryJobConfig(
+        query_parameters=[
+            bigquery.ScalarQueryParameter("subject_id", "INT64", subject_id)
+        ]
+    )
+
+    query_job = bigquery_client.query(query, job_config=job_config)
+    results = query_job.result()
+
+    data = [
+        {"SUBJECT_ID": row.SUBJECT_ID}
+        for row in results
+    ]
+
+    return len(data) > 0
+
+
+@app.route('/make-question/<int:id>/')
+def make_question(id):
+    query = """
+          SELECT *
+          FROM `bdcc-451416.Dataset1.DEFAULT_QUESTIONS`
+          """
+
+    job_config = bigquery.QueryJobConfig(
+        query_parameters=[
+            bigquery.ScalarQueryParameter("subject_id", "INT64", id)
+        ]
+    )
+
+    query_job = bigquery_client.query(query, job_config=job_config)
+    results = query_job.result()
+
+    data = [
+        {"QUESTION_ID": row.QUESTION_ID, "QUESTION": row.QUESTION}
+        for row in results
+    ]
+
+    if not patient_exists(id):
+        return render_template('patient-not-exist.html',
+                               ID=id)
+
+
+    return render_template('make-question.html',
+           data=data, ID=id)
+
+
+
+
+@app.route('/submit-question/<int:id>/', methods=["GET", "POST"])
+def submit_question(id):
+    question = request.form.get("question", "").strip()
+    custom_question = request.form.get("custom_question", "").strip()
+
+    # If "Other" is selected, use the custom question
+    if question == "custom":
+        question = custom_question
+
+        return render_template('answer-question.html', ID=id, question=question)
+
+    else:
+        if question == "What care unit is the patient in?":
+            query= """
+                SELECT FIRST_CAREUNIT
+                FROM `bdcc-451416.Dataset1.ICUSTAYS`
+                WHERE SUBJECT_ID = @subject_id
+            """
+
+            job_config = bigquery.QueryJobConfig(
+                query_parameters=[
+                    bigquery.ScalarQueryParameter("subject_id", "INT64", id)
+                ]
+            )
+
+            query_job = bigquery_client.query(query, job_config=job_config)
+            results = query_job.result()
+
+
+            answer = [row.FIRST_CAREUNIT for row in results][0]
+
+        elif question == "When did the patient arrive?":
+            query = """
+                        SELECT ADMITTIME
+                        FROM `bdcc-451416.Dataset1.ADMISSIONS`
+                        WHERE SUBJECT_ID = @subject_id
+                    """
+
+            job_config = bigquery.QueryJobConfig(
+                query_parameters=[
+                    bigquery.ScalarQueryParameter("subject_id", "INT64", id)
+                ]
+            )
+
+            query_job = bigquery_client.query(query, job_config=job_config)
+            results = query_job.result()
+
+            answer = str([row.ADMITTIME for row in results][0])
+
+        elif question == "Is he alive?":
+            query = """
+                        SELECT EXPIRE_FLAG
+                        FROM `bdcc-451416.Dataset1.PATIENTS`
+                        WHERE SUBJECT_ID = @subject_id
+                    """
+
+            job_config = bigquery.QueryJobConfig(
+                query_parameters=[
+                    bigquery.ScalarQueryParameter("subject_id", "INT64", id)
+                ]
+            )
+
+            query_job = bigquery_client.query(query, job_config=job_config)
+            results = query_job.result()
+
+            answer = [row.EXPIRE_FLAG for row in results][0]
+            answer = "Dead" if answer==1 else "Alive"
+
+
+
+        query = f"""
+         INSERT INTO `bdcc-451416.Dataset1.QUESTIONS` (SUBJECT_ID, QUESTION, ANSWER)
+         VALUES (@SUBJECT_ID, @QUESTION, @ANSWER)
+         """
+
+        query_parameters = [
+            bigquery.ScalarQueryParameter("SUBJECT_ID", "INT64", id),
+            bigquery.ScalarQueryParameter("QUESTION", "STRING", question),
+            bigquery.ScalarQueryParameter("ANSWER", "STRING", answer)
+        ]
+
+        # Define the job configuration and pass parameters safely
+        job_config = bigquery.QueryJobConfig(
+            query_parameters=query_parameters
+        )
+
+        # Run the query
+        query_job = bigquery_client.query(query, job_config=job_config)
+        query_job.result()  # Wait for job to complete
+
+    return render_template('submit-question.html', ID=id, question=question, answer=answer)
+
+
+
+@app.route('/answer-question/<int:id>/', methods=["GET", "POST"])
+def question_answered(id):
+    answer = request.form.get('answer')
+    question = request.form.get('question')
+
+
+    query = f"""
+             INSERT INTO `bdcc-451416.Dataset1.QUESTIONS` (SUBJECT_ID, QUESTION, ANSWER)
+             VALUES (@SUBJECT_ID, @QUESTION, @ANSWER)
+             """
+
+    query_parameters = [
+        bigquery.ScalarQueryParameter("SUBJECT_ID", "INT64", id),
+        bigquery.ScalarQueryParameter("QUESTION", "STRING", question),
+        bigquery.ScalarQueryParameter("ANSWER", "STRING", answer)
+    ]
+
+    # Define the job configuration and pass parameters safely
+    job_config = bigquery.QueryJobConfig(
+        query_parameters=query_parameters
+    )
+
+    # Run the query
+    query_job = bigquery_client.query(query, job_config=job_config)
+    query_job.result()  # Wait for job to complete
+
+    return render_template('submit-question.html', ID=id, question=question, answer=answer)
+
+
+
+
+
+
+
+
+
+
+
 
 
 

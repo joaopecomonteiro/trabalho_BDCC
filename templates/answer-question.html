@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Answer about patient {{ ID }} from icu {% endblock %}</h1>
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<h2> Question: </h2>
+    {{ question }}
+
+<h2> Question: </h2>
+<!-- Form for submitting an answer -->
+<form method="POST" action="/answer-question/{{ ID }}/">
+    <input type="hidden" name="ID" value="{{ ID }}">
+    <input type="hidden" name="question" value="{{ question }}">
+
+    <label for="answer">ICU UNIT Answer:</label><br>
+    <textarea id="answer" name="answer" rows="4" cols="50" required></textarea><br><br>
+
+    <button type="submit">Submit</button>
+</form>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

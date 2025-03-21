@@ -30,6 +30,17 @@
 
 <h2>Funcionalidades básicas</h2>
 
+{#<h2>Make a question</h2>#}
+{#    <a href="/make-question/{{ patient.SUBJECT_ID }}">Make Question</a>#}
+{#    #}
+
+<h3>Make a question</h3>
+<form onsubmit="window.open('/make-question/'+this.elements['id'].value,'_self'); return false;">
+   subject_id:  <input value="" name="id" type="number" min="1"/>
+    <input type="submit" value="obter"/>
+</form>
+
+
 <h3>Patient</h3>
 <p>
    <a href="/patients">Todos os patients</a>

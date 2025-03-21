@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Question about patient {{ ID }} {% endblock %}</h1>
+{% endblock %}
+
+
+{% block content %}
+
+
+    <h2>What question would you like to make:</h2>
+
+
+<form id="questionForm" method="POST" action="/submit-question/{{ ID }}/">
+    <label for="question">Select a question:</label>
+    <select id="question" name="question" onchange="toggleCustomInput()">
+      <option value="">-- Select a question --</option>
+      {% for question in data %}
+        <option value="{{ question.QUESTION }}">{{ question.QUESTION }}</option>
+      {% endfor %}
+      <option value="custom">Other (Write your own)</option>
+    </select>
+
+    <input type="text" id="custom_question" name="custom_question" placeholder="Type your question here" style="display:none;">
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    function toggleCustomInput() {
+      var dropdown = document.getElementById("question");
+      var customInput = document.getElementById("custom_question");
+      if (dropdown.value === "custom") {
+        customInput.style.display = "block";
+      } else {
+        customInput.style.display = "none";
+      }
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
